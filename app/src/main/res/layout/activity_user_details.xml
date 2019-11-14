@@ -16,32 +16,38 @@
         <TextView
             android:id="@+id/tvName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/tvGender"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/tvDob"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/tvCountry"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/tvPhone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="25sp"/>
 
     </LinearLayout>
 </ScrollView>
