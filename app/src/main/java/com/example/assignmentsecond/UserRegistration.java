@@ -11,6 +11,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -32,10 +33,11 @@ public class UserRegistration extends AppCompatActivity implements RadioGroup.On
     Button btnSubmit, btnView;
     RadioGroup radioGroup;
     Spinner spinner;
+    AutoCompleteTextView autoCompleteTextView;
 
-    String name, gender, dob, phone, email, country;
+    String name, gender, dob, phone, email, country, image;
     String[] countries = {"Select Country", "Nepal", "India", "SriLanka", "Bhutan", "Pakistan", "Afghanistan", "Maldives"};
-
+    String[] autoword = {"image1", "image2", "image3"};
     List<User> userList = new ArrayList<>();
 
     Calendar calendar = Calendar.getInstance();
@@ -70,6 +72,14 @@ public class UserRegistration extends AppCompatActivity implements RadioGroup.On
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_values, countries);
         spinner.setAdapter(adapter);
         setSpinnerValue();
+
+        autoCompleteTextView = findViewById(R.id.acImage);
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(
+                this, android.R.layout.select_dialog_item, autoword
+        );
+        autoCompleteTextView.setAdapter(stringArrayAdapter);
+        autoCompleteTextView.setThreshold(1);
+
         btnSubmit.setOnClickListener(this);
         editTextD.setOnClickListener(this);
         btnView.setOnClickListener(this);
@@ -162,6 +172,11 @@ public class UserRegistration extends AppCompatActivity implements RadioGroup.On
             editTextP.requestFocus();
             return false;
         }
+        if (TextUtils.isEmpty(image)) {
+            autoCompleteTextView.setError("Enter Image name");
+            autoCompleteTextView.requestFocus();
+            return false;
+        }
         return true;
     }
 
@@ -172,6 +187,7 @@ public class UserRegistration extends AppCompatActivity implements RadioGroup.On
         dob = editTextD.getText().toString();
         email = editTextE.getText().toString();
         phone = editTextP.getText().toString();
+        image = autoCompleteTextView.getText().toString();
 
         if (view.getId() == R.id.etDob) {
             new DatePickerDialog(this, mydatepicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
@@ -180,7 +196,11 @@ public class UserRegistration extends AppCompatActivity implements RadioGroup.On
 
         if (view.getId() == R.id.btnSubmit) {
             if (validate()) {
-                userList.add(new User(name, gender, country, dob, email, phone));
+                String imageurl = "@drawable/"+image;
+                int resID = getResources().getIdentifier(imageurl,null,getPackageName());
+                String imgID = String.valueOf(resID);
+
+                userList.add(new User(name, gender, country, dob, email, phone, imgID));
                 Toast.makeText(this, "User added", Toast.LENGTH_SHORT).show();
             }
         }
@@ -188,7 +208,7 @@ public class UserRegistration extends AppCompatActivity implements RadioGroup.On
         if (view.getId() == R.id.btnView) {
 
             Intent intent = new Intent(this, RecyclerViewActivity.class);
-            intent.putExtra("allusers",(Serializable) userList);
+            intent.putExtra("allusers", (Serializable) userList);
             startActivity(intent);
 
         }

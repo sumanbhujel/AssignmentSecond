@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class UserDetails extends AppCompatActivity {
 
     TextView tvN, tvG, tvD, tvC, tvE, tvP;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,7 @@ public class UserDetails extends AppCompatActivity {
         tvC = findViewById(R.id.tvCountry);
         tvE = findViewById(R.id.tvEmail);
         tvP = findViewById(R.id.tvPhone);
+        imageView = findViewById(R.id.imgView);
 
         Intent intent = getIntent();
         String n = intent.getStringExtra("name");
@@ -29,6 +32,9 @@ public class UserDetails extends AppCompatActivity {
         String d = intent.getStringExtra("dob");
         String e = intent.getStringExtra("email");
         String p = intent.getStringExtra("phone");
+        String i = intent.getStringExtra("image");
+
+        int imgId = Integer.valueOf(i);
 
         tvN.setText("Name:"+n);
         tvG.setText("Gender:"+g);
@@ -36,5 +42,7 @@ public class UserDetails extends AppCompatActivity {
         tvC.setText("Country:"+c);
         tvE.setText("Email:"+e);
         tvP.setText("Phone:"+p);
+        imageView.setImageResource(imgId);
+
     }
 }
