@@ -12,4 +12,5 @@
     <string name="country">Country:</string>
     <string name="submit">Submit</string>
     <string name="view">View</string>
+    <string name="first_user">First User</string>
 </resources>

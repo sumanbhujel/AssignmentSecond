@@ -66,12 +66,12 @@ public class UserRegistration extends AppCompatActivity implements RadioGroup.On
 
 
     private boolean validate() {
-        Calendar minAge = Calendar.getInstance();
+        /*Calendar minAge = Calendar.getInstance();
         minAge.add(Calendar.YEAR,-18);
 
         if(minAge.before((dob))){
             Toast.makeText(this, "Age should be 18+", Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
 
         if (TextUtils.isEmpty(name)) {
@@ -147,13 +147,9 @@ public class UserRegistration extends AppCompatActivity implements RadioGroup.On
         email = editTextE.getText().toString();
         phone = editTextP.getText().toString();
 
-        //drawable resource
-
-
         if (view.getId() == R.id.etDob) {
             new DatePickerDialog(this, mydatepicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH)).show();
-
         }
 
         if (view.getId() == R.id.btnSubmit) {
@@ -164,19 +160,8 @@ public class UserRegistration extends AppCompatActivity implements RadioGroup.On
         }
 
         if (view.getId() == R.id.btnView) {
-            //for all user object in userlist
-            /*for (User user : userList) {
-                Log.d("Name: ", user.getName());
-                Log.d("Gender: ", user.getGender());
-                Log.d("Country: ", user.getCountry());
-                Log.d("Date of Birth: ", user.getDob());
-                Log.d("Email: ", user.getEmail());
-                Log.d("Phone: ", user.getPhone());
-            }*/
-            //data persistency is needed to store data
 
-            Intent intent = new Intent(this,UserlistRecyclerView.class);
-            //serializable(interface ) = object lai byte string ma convert garcha
+            Intent intent = new Intent(this, UserListView.class);
             intent.putExtra("allusers",(Serializable) userList);
             startActivity(intent);
 
