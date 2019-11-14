@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -62,6 +64,45 @@ public class UserRegistration extends AppCompatActivity implements RadioGroup.On
         spinner = findViewById(R.id.spCountry);
         btnSubmit = findViewById(R.id.btnSubmit);
         btnView = findViewById(R.id.btnView);
+
+        radioGroup.setOnCheckedChangeListener(this);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_values, countries);
+        spinner.setAdapter(adapter);
+        setSpinnerValue();
+        btnSubmit.setOnClickListener(this);
+        editTextD.setOnClickListener(this);
+        btnView.setOnClickListener(this);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        if (i == R.id.rbMale) {
+            //Toast.makeText(this, "Male", Toast.LENGTH_SHORT).show();
+            gender = "Male";
+        }
+        if (i == R.id.rbFemale) {
+            gender = "Female";
+        }
+        if (i == R.id.rbOthers) {
+            gender = "Other";
+        }
+
+    }
+
+    private void setSpinnerValue() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                country = adapterView.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(UserRegistration.this, "Please Select Country", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 
@@ -125,21 +166,6 @@ public class UserRegistration extends AppCompatActivity implements RadioGroup.On
     }
 
     @Override
-    public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        if (i == R.id.rbMale) {
-            //Toast.makeText(this, "Male", Toast.LENGTH_SHORT).show();
-            gender = "Male";
-        }
-        if (i == R.id.rbFemale) {
-            gender = "Female";
-        }
-        if (i == R.id.rbOthers) {
-            gender = "Other";
-        }
-
-    }
-
-    @Override
     public void onClick(View view) {
 
         name = editTextN.getText().toString();
@@ -161,7 +187,7 @@ public class UserRegistration extends AppCompatActivity implements RadioGroup.On
 
         if (view.getId() == R.id.btnView) {
 
-            Intent intent = new Intent(this, UserListView.class);
+            Intent intent = new Intent(this, RecyclerViewActivity.class);
             intent.putExtra("allusers",(Serializable) userList);
             startActivity(intent);
 

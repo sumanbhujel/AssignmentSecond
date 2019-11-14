@@ -55,8 +55,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyHolder>{
             public void onClick(View v) {
                 Intent intent = new Intent( v.getContext() , UserDetails.class);
                 intent.putExtra("name", users.getName());
-                intent.putExtra("dob", users.getDob());
                 intent.putExtra("gender", users.getGender());
+                intent.putExtra("dob", users.getDob());
                 intent.putExtra("country", users.getCountry());
                 intent.putExtra("email", users.getEmail());
                 intent.putExtra("phone", users.getPhone());
